@@ -1,9 +1,9 @@
 """Main module."""
 import numpy as np
-
 import gensim
 
 class W2V:
+    """ An abstract word encoder """
 
     def fit(self, data):
         raise NotImplementedError
@@ -18,10 +18,13 @@ class GoogleNews(W2V):
     """
     https://rare-technologies.com/word2vec-tutorial/
     """
-    def __init__(self, addr='./model/GoogleNews-vectors-negative300.bin'):
+    def __init__(self, addr='./GoogleNews_word2vec/GoogleNews-vectors-negative300.bin'):
         self.addr = addr
-        self.model = gensim.models.Word2Vec.load_word2vec_format(
+        self.model = gensim.models.KeyedVectors.load_word2vec_format(
             self.addr, binary=True)
+
+    def fit(self, data):
+        pass
 
     def encode(self, text):
         words = text.split()
@@ -36,3 +39,11 @@ class GoogleNews(W2V):
         return np.array([self.model.similar_by_vector(vec, topn=1)[0][0] 
                          for vec in vectors])
 
+def test_gnews():
+    coder = GoogleNews()
+    cake = coder.encode('cake')
+    print('cake:', cake)
+    assert cake.shape == (1,300)
+
+if __name__ == '__main__':
+    test_gnews()
