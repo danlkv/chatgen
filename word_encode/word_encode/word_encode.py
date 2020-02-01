@@ -39,11 +39,3 @@ class GoogleNews(W2V):
         return np.array([self.model.similar_by_vector(vec, topn=1)[0][0] 
                          for vec in vectors])
 
-def test_gnews():
-    coder = GoogleNews()
-    cake = coder.encode('cake')
-    print('cake:', cake)
-    assert cake.shape == (1,300)
-
-if __name__ == '__main__':
-    test_gnews()
