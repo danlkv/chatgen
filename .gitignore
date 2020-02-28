@@ -127,3 +127,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# Maxim ignore
+
+*.zip
+data/
+GoogleNews_word2vec/
+*.pkl
